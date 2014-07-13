@@ -22,18 +22,15 @@ type UsbIO2 struct {
     seq byte
 }
 
-func NewUsbIO2() *UsbIO2 {
-    return &UsbIO2{dev: nil, name: ""}
-}
-
-
-func (self *UsbIO2) Setup() error {
-    err := self.openUsbIo2()
+func NewUsbIO2() (*UsbIO2, error) {
+    usbio := &UsbIO2{name: ""}
+    err := usbio.openUsbIo2()
     if err != nil {
-        return err
+        return nil,err
     }
-    return nil
+    return usbio, nil
 }
+
 
 func (self *UsbIO2) GetDeviceName() string {
     return self.name
@@ -65,7 +62,7 @@ func (self *UsbIO2) GetPortStatus() (uint16, error) {
     buf := bytes.NewReader(read_data[1:3])
     err = binary.Read(buf, binary.LittleEndian, &ret)
     if err != nil {
-        return 0, fmt.Errorf("binary.Read : %s", err)
+        return 0, fmt.Errorf("binary.Read: %s", err)
     }
 
     self.incrementSequence()
@@ -90,7 +87,7 @@ func (self *UsbIO2) openUsbIo2() error {
         return nil
     }
 
-    return fmt.Errorf("USB-IO2 is not found.")
+    return fmt.Errorf("Error: openUsbIo2: USB-IO2 is not found.")
 }
 
 
@@ -108,7 +105,7 @@ func (self *UsbIO2) write(data []byte) error {
     }
 
     if write_size != USBIO2_COMMANDSIZE {
-        log.Printf("WARN: Strainge write data size : %d", write_size)
+        log.Printf("write: WARN: Strainge write data size : %d", write_size)
     }
 
     return nil
@@ -122,10 +119,10 @@ func (self *UsbIO2) read() (data []byte, err error) {
     }
 
     if read_size != USBIO2_COMMANDSIZE {
-        log.Printf("WARN: Strainge read data size : %d", read_size)
+        log.Printf("read: WARN: Strainge read data size: %d", read_size)
     }
     if read_data[USBIO2_COMMANDSIZE - 1] != self.seq {
-        log.Printf("WARN: Don't match sequence number")
+        log.Printf("read: WARN: Don't match sequence number")
     }
 
     return read_data, nil
