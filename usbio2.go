@@ -195,6 +195,9 @@ func (self *UsbIO2) GetConfig() (*UsbIO2Config, error) {
 }
 
 
+/*
+*/
+type Port []bool
 
 /*
 */
@@ -205,12 +208,16 @@ type UsbIO2Config struct {
 
     // Pin Settings
     // true: input, false: output
-    PinPort1 [8]bool
-    PinPort2 [8]bool
+    Port1 Port
+    Port2 Port
 }
 
 func NewUsbIO2Config() *UsbIO2Config {
-    return &UsbIO2Config{}
+    return &UsbIO2Config{
+        false,
+        make(Port, 8, 8),
+        make(Port, 8, 8),
+    }
 }
 
 func (self *UsbIO2Config) FromBytes(buf []byte) {
@@ -220,8 +227,8 @@ func (self *UsbIO2Config) FromBytes(buf []byte) {
         self.EnablePullUp = true
     }
 
-    self.PinPort1 = byte_to_boolarray(buf[4])
-    self.PinPort2 = byte_to_boolarray(buf[5])
+    self.Port1 = byte_to_boolarray(buf[4])
+    self.Port2 = byte_to_boolarray(buf[5])
 }
 
 
@@ -233,14 +240,14 @@ func (self *UsbIO2Config) ToBytes() []byte {
         buf[1] = 0x01
     }
 
-    buf[4] = boolarray_to_byte(self.PinPort1)
-    buf[5] = boolarray_to_byte(self.PinPort2)
+    buf[4] = boolarray_to_byte(self.Port1)
+    buf[5] = boolarray_to_byte(self.Port2)
 
     return buf
 }
 
 
-func boolarray_to_byte(ba [8]bool) byte {
+func boolarray_to_byte(ba Port) byte {
     var b byte = 0
     for i, p := range ba {
         if p {
@@ -251,8 +258,8 @@ func boolarray_to_byte(ba [8]bool) byte {
 }
 
 
-func byte_to_boolarray(b byte) [8]bool {
-    var ba [8]bool
+func byte_to_boolarray(b byte) Port {
+    ba := make(Port, 8, 8)
     for i := 0; b != 0; i++ {
         if (b & 0x01) == 0x01 {
             ba[i] = true

@@ -21,11 +21,11 @@ func main() {
     log.Printf("Detected: %s", uio.GetDeviceName())
     log.Printf("Pullup Enabled: %v", config.EnablePullUp)
     log.Printf("Port1 Pin Setup (value in 'ture' is a INPUT)")
-    for i, b := range config.PinPort1 {
+    for i, b := range config.Port1 {
         log.Printf("  Pin%d: %v", i, b)
     }
     log.Printf("Port2 Pin Setup (value in 'ture' is a INPUT)")
-    for i, b := range config.PinPort2 {
+    for i, b := range config.Port2 {
         log.Printf("  Pin%d: %v", i, b)
     }
 }
