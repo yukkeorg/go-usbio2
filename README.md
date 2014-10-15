@@ -3,7 +3,7 @@ go-usbio2
 
 License: MIT
 
-**This is experimental package**
+**WARNING: This is experimental package**
 
 
 Dependencies
