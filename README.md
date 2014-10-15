@@ -6,8 +6,8 @@ License: MIT
 **This is experimental package**
 
 
-Dependency
-----------
+Dependencies
+------------
 
 - go.hid (https://github.com/GeertJohan/go.hid)
 
