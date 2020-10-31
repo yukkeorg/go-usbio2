@@ -1,0 +1,6 @@
+github.com/GeertJohan/cgo.wchar v0.0.0-20150629085219-a0ecb6cbd4ac h1:bHv39R8IibFbpr/C2FJHgNwYmuzrsCwwQjEr84n3yqA=
+github.com/GeertJohan/cgo.wchar v0.0.0-20150629085219-a0ecb6cbd4ac/go.mod h1:YsGt3IvCKudF08m0ET3oaazf8NqD6QZlXmov7KJTMMc=
+github.com/GeertJohan/go.hid v0.0.0-20170416155212-cd5395e4d581 h1:yqfPlcJWOFLDYVW289RIxihOk3Cpx/Tr1JaBvTxxnjg=
+github.com/GeertJohan/go.hid v0.0.0-20170416155212-cd5395e4d581/go.mod h1:Q2VsNPaYPVqJGRvjiDPVQrVmRwBJBjmWb0xSXxUMpvs=
+github.com/bearsh/hid v1.1.0 h1:ZMyddzpbbrGUZGdCZA2ycZLDazCzmyK4ufxBObnpC5A=
+github.com/bearsh/hid v1.1.0/go.mod h1:KbQByg8WfPr92v7aaKAHTtZUEVG7e2XRpcF8+TopQv8=
