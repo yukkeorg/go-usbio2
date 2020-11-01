@@ -14,11 +14,7 @@ func boolarray_to_byte(ba []bool) byte {
 func byte_to_boolarray(b byte) []bool {
 	ba := make([]bool, 8, 8)
 	for i := 0; b != 0; i++ {
-		if (b & 0x01) == 0x01 {
-			ba[i] = true
-		} else {
-			ba[i] = false
-		}
+		ba[i] = ((b & 0x01) == 0x01)
 		b = b >> 1
 	}
 	return ba
