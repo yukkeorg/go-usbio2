@@ -10,8 +10,8 @@ import (
 
 const (
 	USB_VENDOR       uint16 = 0x1352
-	USB_PRODUCT_ORIG uint16 = 0x0120
-	USB_PRODUCT_AKI  uint16 = 0x0121
+	USB_PRODUCT_ORIG uint16 = 0x0120 // ORIGINAL
+	USB_PRODUCT_AKI  uint16 = 0x0121 // AKIZUKI Compatible
 
 	COMMANDSIZE  int = 64
 
@@ -27,9 +27,9 @@ const (
 	CMD_WEIRWCONFIG   byte = 0xF9
 
 	// Config
-	CNF_P2_PULLUP_DEFALUT byte = 0x00
 	CNF_P2_PULLUP_ENABLE  byte = 0x00
 	CNF_P2_PULLUP_DISABLE byte = 0x01
+	CNF_P2_PULLUP_DEFALUT byte = CNF_P2_PULLUP_ENABLE
 
 	CNF_P1_PIN_DEFAULT  byte = 0x00
 	CNF_P2_PIN_DEFAULT  byte = 0x0F
@@ -95,7 +95,7 @@ func (self *UsbIO2) Cleanup() {
 }
 
 func (self *UsbIO2) CreateCommand(requestId byte) ([]byte, error) {
-	return self.CreateCommandWithData(requestId, make([]byte, 0))
+	return self.CreateCommandWithData(requestId, []byte{})
 }
 
 func (self *UsbIO2) CreateCommandWithData(requestId byte, data []byte) ([]byte, error) {
@@ -148,10 +148,12 @@ func (self *UsbIO2) WriteRead(command []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	read_data, err2 := self.Read()
+
+	read_data, err := self.Read()
 	if err != nil {
-		return nil, err2
+		return nil, err
 	}
+
 
 	return read_data, nil
 }
