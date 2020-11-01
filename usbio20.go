@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"bytes"
+        "time"
 	"encoding/binary"
 	"github.com/bearsh/hid"
 )
@@ -148,12 +149,14 @@ func (self *UsbIO2) WriteRead(command []byte) ([]byte, error) {
 		return nil, err
 	}
 
+	time.Sleep(1 * time.Millisecond)
 
 	read_data, err := self.Read()
 	if err != nil {
 		return nil, err
 	}
 
+	self.seq++
 
 	return read_data, nil
 }
