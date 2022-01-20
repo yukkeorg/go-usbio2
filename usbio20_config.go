@@ -21,7 +21,7 @@ func NewUsbIO2Config() *UsbIO2Config {
 }
 
 func (self *UsbIO2Config) FromBytes(buf []byte) {
-	if (buf[1] & 0x01) == 0x01 {
+	if buf[1] & 0x01 == 0x01 {
 		self.EnablePullUp = false
 	} else {
 		self.EnablePullUp = true

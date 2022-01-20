@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"bytes"
-        "time"
+    "time"
 	"encoding/binary"
 	"github.com/bearsh/hid"
 )
@@ -47,7 +47,7 @@ type UsbIO2 struct {
 func NewUsbIO2() (*UsbIO2, error) {
 	usbio := &UsbIO2{name: ""}
 	if err := usbio.openUsbIo2(); err != nil {
-		return nil,err
+		return nil, err
 	}
 	return usbio, nil
 }
@@ -60,7 +60,8 @@ func (self *UsbIO2) openUsbIo2() error {
 
 	detect_devices = hid.Enumerate(USB_VENDOR, USB_PRODUCT_ORIG)
 	if len(detect_devices) > 0 {
-		dev, err := detect_devices[0].Open()
+        detect_device := detect_devices[0]
+		dev, err := detect_device.Open()
 		if err != nil {
 			return err
 		}
@@ -71,7 +72,8 @@ func (self *UsbIO2) openUsbIo2() error {
 
 	detect_devices = hid.Enumerate(USB_VENDOR, USB_PRODUCT_AKI)
 	if len(detect_devices) > 0 {
-		dev, err := detect_devices[0].Open()
+        detect_device := detect_devices[0]
+		dev, err := detect_device.Open()
 		if err != nil {
 			return err
 		}
