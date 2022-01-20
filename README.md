@@ -16,23 +16,26 @@ export GOPATH=/path/to/go-develop-directory
 go get github.com/yukkeorg/go-usbio2
 ```
 
-Usage
------
+Example
+-------
 
 ``` golang
+package main
+
 import "fmt"
-import "github.com/yukkeorg/usbio2"
+import "github.com/yukkeorg/go-usbio2"
 
 func main() {
 	usbio, err := usbio2.NewUsbIO2()
 	if err != nil {
 		return
 	}
-	deffer usbio.Cleanup()
+	defer usbio.Cleanup()
 
 	fmt.Printf("Device Name: %s\n", usbio.GetDeviceName())
 
-	r, err := usbio.WriteRead([]byte{})
+cmd, _ := usbio.CreateCommand(usbio2.CMD_WRITEREAD)
+	r, err := usbio.WriteRead(cmd)
 	if err != nil {
 		return
 	}
